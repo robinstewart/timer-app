@@ -28,8 +28,8 @@ class MVTimerController: NSWindowController {
     volumeButton = NSButton()
     volumeButton.setButtonType(.momentaryPushIn)
     volumeButton.isBordered = false
-    volumeButton.alphaValue = 0.25
-    let size = NSSize(width: 29, height: 26)
+    volumeButton.alphaValue = 0.2
+    let size = NSSize(width: 29, height: 28)
     volumeButton.frame = NSRect(origin: NSPoint(x: mainView.frame.maxX - size.width, y: mainView.frame.maxY - size.height), size: size)
     volumeButton.target = self
     volumeButton.action = #selector(clickVolumeButton)

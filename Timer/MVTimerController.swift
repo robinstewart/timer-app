@@ -26,9 +26,9 @@ class MVTimerController: NSWindowController {
     
     // Add a volume button
     volumeButton = NSButton()
-    volumeButton.setButtonType(.momentaryPushIn)
+    volumeButton.setButtonType(.momentaryChange)
     volumeButton.isBordered = false
-    volumeButton.alphaValue = 0.2
+    //volumeButton.alphaValue = 0.2
     let size = NSSize(width: 29, height: 28)
     volumeButton.frame = NSRect(origin: NSPoint(x: mainView.frame.maxX - size.width, y: mainView.frame.maxY - size.height), size: size)
     volumeButton.target = self
@@ -104,8 +104,10 @@ class MVTimerController: NSWindowController {
     self.volume = volume
     
     // Update button image
-    let name = "volume-\(VolumeCategory(volume).name)"
-    volumeButton.image = NSImage(named: NSImage.Name(rawValue: name))
+    let imageName = "volume-\(VolumeCategory(volume).name)"
+    let pressedImageName = "volume-press-\(VolumeCategory(volume).name)"
+    volumeButton.image = NSImage(named: NSImage.Name(rawValue: imageName))
+    volumeButton.alternateImage = NSImage(named: NSImage.Name(rawValue: pressedImageName))
   }
   
   func playAlarmSound() {

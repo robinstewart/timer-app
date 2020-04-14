@@ -106,8 +106,8 @@ class MVTimerController: NSWindowController {
     // Update button image
     let imageName = "volume-\(VolumeCategory(volume).name)"
     let pressedImageName = "volume-press-\(VolumeCategory(volume).name)"
-    volumeButton.image = NSImage(named: NSImage.Name(rawValue: imageName))
-    volumeButton.alternateImage = NSImage(named: NSImage.Name(rawValue: pressedImageName))
+    volumeButton.image = NSImage(named: imageName)
+    volumeButton.alternateImage = NSImage(named: pressedImageName)
   }
   
   func playAlarmSound() {

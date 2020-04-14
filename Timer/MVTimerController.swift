@@ -36,7 +36,7 @@ class MVTimerController: NSWindowController {
     self.setVolume(UserDefaults.standard.float(forKey: MVUserDefaultsKeys.volume))
     self.mainView.addSubview(volumeButton)
     
-    self.windowFrameAutosaveName = NSWindow.FrameAutosaveName("TimerWindowAutosaveFrame")
+    self.windowFrameAutosaveName = "TimerWindowAutosaveFrame"
     
     window.makeKeyAndOrderFront(self)    
   }

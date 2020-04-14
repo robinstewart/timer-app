@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00567D4D24454E6400A38A9D /* MVVolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00567D4C24454E6400A38A9D /* MVVolumeControl.swift */; };
 		41A37D0724426E360078EA40 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 41A37D0624426E360078EA40 /* Credits.rtf */; };
 		41B080C62114CE2700EEE7E8 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B080C52114CE2700EEE7E8 /* Keycodes.swift */; };
 		4C30BBFC1CA7C56500C45EBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C30BBFB1CA7C56500C45EBF /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00567D4C24454E6400A38A9D /* MVVolumeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVolumeControl.swift; sourceTree = "<group>"; };
 		41A37D0624426E360078EA40 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		41B080C52114CE2700EEE7E8 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		4C30BBF81CA7C56500C45EBF /* Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Timer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +79,7 @@
 				4C30BC0E1CA7CFBB00C45EBF /* MVTitlebarAccessoryViewController.swift */,
 				4C30BC151CA7D94500C45EBF /* MVClockView.swift */,
 				4C6F0F201CAA3D8600E9A6F7 /* MVLabel.swift */,
+				00567D4C24454E6400A38A9D /* MVVolumeControl.swift */,
 				723C0C571E12211000E7AE1E /* MVUserDefaultsKeys.swift */,
 				4C30BBFD1CA7C56500C45EBF /* Assets.xcassets */,
 				4C30BC021CA7C56500C45EBF /* Info.plist */,
@@ -168,6 +171,7 @@
 				4C6F0F2C1CACF4B500E9A6F7 /* MVTimerController.swift in Sources */,
 				4C30BC091CA7C81C00C45EBF /* MVWindow.swift in Sources */,
 				41B080C62114CE2700EEE7E8 /* Keycodes.swift in Sources */,
+				00567D4D24454E6400A38A9D /* MVVolumeControl.swift in Sources */,
 				4C30BBFC1CA7C56500C45EBF /* AppDelegate.swift in Sources */,
 				4C30BC161CA7D94500C45EBF /* MVClockView.swift in Sources */,
 				4C30BC101CA7CFBB00C45EBF /* MVTitlebarAccessoryViewController.swift in Sources */,

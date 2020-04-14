@@ -6,8 +6,7 @@ class MVTimerController: NSWindowController {
   private var mainView: MVMainView!
   private var clockView: MVClockView!
   
-  private var volumeButton: NSButton!
-  private var volume:Float = 1
+  private var volumeControl: MVVolumeControl!
   private var audioPlayer: AVAudioPlayer? // player must be kept in memory
 
   convenience init() {
@@ -25,16 +24,8 @@ class MVTimerController: NSWindowController {
     self.mainView.addSubview(clockView)
     
     // Add a volume button
-    volumeButton = NSButton()
-    volumeButton.setButtonType(.momentaryChange)
-    volumeButton.isBordered = false
-    volumeButton.alphaValue = 0.9
-    let size = NSSize(width: 27, height: 27)
-    volumeButton.frame = NSRect(origin: NSPoint(x: mainView.frame.maxX - size.width, y: mainView.frame.maxY - size.height), size: size)
-    volumeButton.target = self
-    volumeButton.action = #selector(clickVolumeButton)
-    self.setVolume(UserDefaults.standard.float(forKey: MVUserDefaultsKeys.volume))
-    self.mainView.addSubview(volumeButton)
+    volumeControl = MVVolumeControl()
+    self.mainView.addSubview(volumeControl)
     
     self.windowFrameAutosaveName = "TimerWindowAutosaveFrame"
     
@@ -66,63 +57,11 @@ class MVTimerController: NSWindowController {
     clockView.windowIsVisible = visible
   }
   
-  enum VolumeCategory: Float {
-    case off = 0, low = 0.05, medium = 0.25, high = 1
-    
-    static let allCases = [VolumeCategory.off, .low, .medium, .high]
-    
-    init(_ volume:Float) {
-      for threshold in VolumeCategory.allCases.reversed() {
-        if volume >= threshold.rawValue {
-          self = threshold
-          return
-        }
-      }
-      self = .high // default
-    }
-    
-    func next() -> VolumeCategory {
-      switch self {
-        case .high:  return .medium
-        case .medium:  return .low
-        case .low:  return .off
-        case .off: return .high
-      }
-    }
-    
-    var name: String {
-      switch self {
-        case .off: return "off"
-        case .low:  return "low"
-        case .medium:  return "medium"
-        case .high:  return "high"
-      }
-    }
-  }
-  
-  func setVolume(_ volume:Float) {
-    self.volume = volume
-    
-    // Update button image
-    let imageName = "volume-\(VolumeCategory(volume).name)"
-    let pressedImageName = "volume-press-\(VolumeCategory(volume).name)"
-    volumeButton.image = NSImage(named: imageName)
-    volumeButton.alternateImage = NSImage(named: pressedImageName)
-  }
-  
   func playAlarmSound() {
     let soundURL = Bundle.main.url(forResource: "alert-sound", withExtension: "caf")
     audioPlayer = try? AVAudioPlayer(contentsOf: soundURL!)
-    audioPlayer?.volume = self.volume
+    audioPlayer?.volume = volumeControl.volume
     audioPlayer?.play()
-  }
-  
-  @objc func clickVolumeButton(_ button: NSButton) {
-    let newVolume:Float = VolumeCategory(self.volume).next().rawValue
-    UserDefaults.standard.set(newVolume, forKey: MVUserDefaultsKeys.volume)
-    self.setVolume(newVolume)
-    
-    //playAlarmSound()
   }
   
   @objc func handleClockTimer(_ clockView: MVClockView) {

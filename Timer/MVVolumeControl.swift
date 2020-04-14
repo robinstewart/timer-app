@@ -56,7 +56,6 @@ class MVVolumeControl: NSButton {
     
     self.setButtonType(.momentaryChange)
     self.isBordered = false
-    self.alphaValue = 0.9
     
     let size = NSSize(width: 27, height: 27)
     let upRight = NSPoint(x: superview.frame.maxX, y: superview.frame.maxY)
@@ -78,12 +77,38 @@ class MVVolumeControl: NSButton {
   
   func setVolume(_ volume:Float) {
     self.volume = volume
-    
-    // Update button image
-    let imageName = "volume-\(VolumeCategory(volume).name)"
-    let pressedImageName = "volume-press-\(VolumeCategory(volume).name)"
-    self.image = NSImage(named: imageName)
-    self.alternateImage = NSImage(named: pressedImageName)
+    updateImages()
   }
   
+  func updateImages() {
+    self.image = image(for: VolumeCategory(volume))
+    self.alternateImage = image(for: VolumeCategory(volume), isAlternate: true)
+  }
+  
+  func image(for category: VolumeCategory, isAlternate: Bool = false) -> NSImage? {
+    guard let baseImage = NSImage(named: "volume-\(category.name)")
+      else { return nil }
+    
+    func imageColor() -> NSColor {
+      if #available(OSX 10.13, *) {
+        return isAlternate ? NSColor(named: "control-pressed-tint-color")! : NSColor(named: "control-tint-color")!
+      }
+      return NSColor(white: 0, alpha: isAlternate ? 0.4 : 0.2)
+    }
+    
+    return tintedImage(baseImage, colorFunc: imageColor)
+  }
+}
+
+func tintedImage(_ image: NSImage, colorFunc: @escaping ()->NSColor) -> NSImage {
+  // Create an image that automatically redraws when the system appearance changes
+  return NSImage(size: image.size, flipped: false) { (dstRect) -> Bool in
+    let color = colorFunc()
+    
+    image.draw(in: dstRect, from: dstRect, operation: .sourceOver, fraction: color.alphaComponent)
+    
+    color.withAlphaComponent(1).set()
+    dstRect.fill(using: .sourceAtop)
+    return true
+  }
 }
